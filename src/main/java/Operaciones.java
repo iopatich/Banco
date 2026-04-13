@@ -20,6 +20,7 @@ public class Operaciones {
         if (usuario.getSaldo() < monto) {
             System.out.println("No cuenta con saldo suficiente para retirar ese monto.");
         } else {
+            usuario.setSaldo(usuario.getSaldo() - monto);
             System.out.println("Se han retirado $" + monto + " correctamente.");
         }
     }

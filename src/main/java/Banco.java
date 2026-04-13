@@ -1,10 +1,31 @@
+import java.util.ArrayList;
+
 public class Banco {
-    public void mostrarBalanceCuentas(Usuario cuenta1, Usuario cuenta2, Usuario cuenta3) {
-        System.out.println("El balance de cada cuenta es el siguiente");
-        System.out.println(cuenta1.getNombre() + ": " + cuenta1.getSaldo());
-        System.out.println(cuenta2.getNombre() + ": " + cuenta2.getSaldo());
-        System.out.println(cuenta3.getNombre() + ": " + cuenta3.getSaldo());
-        System.out.println("El balance total de las cuentas en el banco es de $" + (cuenta1.getSaldo() + cuenta2.getSaldo() + cuenta3.getSaldo()));
+    private ArrayList<Usuario> usuarios = new ArrayList<>();
+    public void crearUsuario(String nombre, String direccion, TipoCuenta tipoCuenta, int edad, String correo) {
+        Usuario usuario = new Usuario(nombre, direccion, tipoCuenta, edad, correo);
+        usuarios.add(usuario);
+        System.out.println("El usuario ha sido creado con éxito!");
+    }
+
+    public Usuario buscarUsuario(String nombre) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.getNombre().equalsIgnoreCase(nombre)) {
+                return usuario;
+            }
+        }
+        return null;
+    }
+
+    public void mostrarBalanceCuentas() {
+        double total = 0;
+
+        for (Usuario usuario : usuarios) {
+            System.out.println(usuario.getNombre() + ": $" + usuario.getSaldo());
+            total += usuario.getSaldo();
+        }
+
+        System.out.println("Total en el banco: $" + total);
     }
 
     public void mostrarSaldo(Usuario usuario) {
