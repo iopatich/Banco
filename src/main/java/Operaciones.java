@@ -4,12 +4,14 @@ public class Operaciones {
         System.out.println("Se han depositado $" + monto + " en su cuenta");
     }
 
-    public void transferir(Usuario usuarioSalida, Usuario usuarioEntrada, double monto) {
-        if (monto > usuarioSalida.saldo) {
+    public void transferir(Usuario usuarioOrigen, Usuario usuarioDestino, double monto) {
+        if (usuarioOrigen == usuarioDestino) {
+            System.out.println("No es posible transferirse a uno mismo.");
+        } else if (monto > usuarioOrigen.saldo) {
             System.out.println("Saldo insuficiente");
         } else {
-            usuarioSalida.saldo -= monto;
-            usuarioEntrada.saldo += monto;
+            usuarioOrigen.saldo -= monto;
+            usuarioDestino.saldo += monto;
             System.out.println("La transferencia se ha enviado con exito!");
         }
     }
