@@ -15,17 +15,4 @@ public class Operaciones {
             System.out.println("La transferencia se ha enviado con exito!");
         }
     }
-
-    public void mostrarSaldo(Usuario usuario) {
-        System.out.println("El saldo del usuario " + usuario.getNombre() + " es: $" + usuario.getSaldo());
-    }
-
-    public void mostrarCuenta(Usuario usuario) {
-        System.out.println("Nombre: " + usuario.getNombre());
-        System.out.println("Direccion: " + usuario.getDireccion());
-        System.out.println("Tipo de cuenta: " + usuario.getTipoCuenta());
-        System.out.println("Edad: " + usuario.getEdad());
-        System.out.println("Correo: " + usuario.getCorreo());
-        System.out.println("Saldo: " + usuario.getSaldo());
-    }
 }

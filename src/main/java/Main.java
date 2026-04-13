@@ -12,20 +12,20 @@ public class Main {
         operacion.depositar(user3, 20000);
         System.out.println();
 
-        operacion.mostrarSaldo(user1);
-        operacion.mostrarSaldo(user2);
-        operacion.mostrarSaldo(user3);
+        banco.mostrarSaldo(user1);
+        banco.mostrarSaldo(user2);
+        banco.mostrarSaldo(user3);
         System.out.println();
 
         operacion.transferir(user1, user2, 5000);
-        operacion.mostrarSaldo(user1);
-        operacion.mostrarSaldo(user2);
+        banco.mostrarSaldo(user1);
+        banco.mostrarSaldo(user2);
         System.out.println();
 
         operacion.transferir(user1, user1, 2500);
         System.out.println();
 
-        operacion.mostrarCuenta(user1);
+        banco.mostrarCuenta(user1);
         System.out.println();
 
         banco.mostrarBalanceCuentas(user1, user2, user3);
