@@ -15,4 +15,12 @@ public class Operaciones {
             System.out.println("La transferencia se ha enviado con exito!");
         }
     }
+
+    public void retirar(Usuario usuario, double monto) {
+        if (usuario.getSaldo() < monto) {
+            System.out.println("No cuenta con saldo suficiente para retirar ese monto.");
+        } else {
+            System.out.println("Se han retirado $" + monto + " correctamente.");
+        }
+    }
 }

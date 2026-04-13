@@ -1,7 +1,7 @@
 public class Usuario {
     private String nombre;
     private String direccion;
-    private String tipoCuenta;
+    private TipoCuenta tipoCuenta;
     private int edad;
     private String correo;
     private double saldo;
@@ -14,7 +14,7 @@ public class Usuario {
         return direccion;
     }
 
-    public String getTipoCuenta() {
+    public TipoCuenta getTipoCuenta() {
         return tipoCuenta;
     }
 
@@ -35,7 +35,7 @@ public class Usuario {
     }
 
 
-    public Usuario(String nombre, String direccion, String tipoCuenta, int edad, String correo) {
+    public Usuario(String nombre, String direccion, TipoCuenta tipoCuenta, int edad, String correo) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.tipoCuenta = tipoCuenta;

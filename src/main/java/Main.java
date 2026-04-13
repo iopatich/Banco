@@ -1,8 +1,8 @@
 public class Main {
     public static void main(String[] args) {
-        Usuario user1 = new Usuario("Ignacio", "Calle 1234", "Corriente", 22, "iopatich@gmail.com");
-        Usuario user2 = new Usuario("Jorge", "Avenida 200", "Ahorro", 30, "jorge@gmail.com");
-        Usuario user3 = new Usuario("Delfina", "Calle 303", "Corriente", 22, "delfina@gmail.com");
+        Usuario user1 = new Usuario("Ignacio", "Calle 1234", TipoCuenta.CORRIENTE, 22, "iopatich@gmail.com");
+        Usuario user2 = new Usuario("Jorge", "Avenida 200", TipoCuenta.AHORRO, 30, "jorge@gmail.com");
+        Usuario user3 = new Usuario("Delfina", "Calle 303", TipoCuenta.CORRIENTE, 22, "delfina@gmail.com");
 
         Operaciones operacion = new Operaciones();
         Banco banco = new Banco();
