@@ -1,10 +1,39 @@
 public class Usuario {
-    public String nombre;
-    public String direccion;
-    public String tipoCuenta;
-    public int edad;
-    public String correo;
-    public double saldo;
+    private String nombre;
+    private String direccion;
+    private String tipoCuenta;
+    private int edad;
+    private String correo;
+    private double saldo;
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public String getTipoCuenta() {
+        return tipoCuenta;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
 
     public Usuario(String nombre, String direccion, String tipoCuenta, int edad, String correo) {
         this.nombre = nombre;
