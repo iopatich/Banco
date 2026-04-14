@@ -1,18 +1,26 @@
 import java.util.ArrayList;
 
 public class Banco {
-    private ArrayList<Usuario> usuarios = new ArrayList<>();
-    public void crearUsuario(String nombre, String direccion, TipoCuenta tipoCuenta, int edad, String correo) {
-        Usuario usuario = new Usuario(nombre, direccion, tipoCuenta, edad, correo);
-        usuarios.add(usuario);
-        System.out.println("El usuario ha sido creado con éxito!");
+    private ArrayList<Sucursal> sucursales = new ArrayList<>();
+
+    public void crearSucursal(String nombre) {
+        sucursales.add(new Sucursal(nombre));
+        System.out.println("Sucursal creada: " + nombre);
+    }
+
+    public Sucursal buscarSucursal(String nombre) {
+        for (Sucursal sucursal : sucursales) {
+            if (sucursal.getNombre().equalsIgnoreCase(nombre)) {
+                return sucursal;
+            }
+        }
+        return null;
     }
 
     public Usuario buscarUsuario(String nombre) {
-        for (Usuario usuario : usuarios) {
-            if (usuario.getNombre().equalsIgnoreCase(nombre)) {
-                return usuario;
-            }
+        for (Sucursal sucursal : sucursales) {
+            Usuario usuario = sucursal.buscarUsuario(nombre);
+            if (usuario != null) return usuario;
         }
         return null;
     }
@@ -20,16 +28,18 @@ public class Banco {
     public void mostrarBalanceCuentas() {
         double total = 0;
 
-        for (Usuario usuario : usuarios) {
-            System.out.println(usuario.getNombre() + ": $" + usuario.getSaldo());
-            total += usuario.getSaldo();
+        for (Sucursal sucursal : sucursales) {
+            System.out.print("Ingrese la sucursal que quiera mirar: " + sucursal.getNombre());
+
+            for (Usuario usuario : sucursal.getUsuarios()) {
+                System.out.println("  " + usuario.getNombre() + ": $" + usuario.getSaldo());
+                total += usuario.getSaldo();
+            }
+
+            System.out.println();
         }
 
         System.out.println("Total en el banco: $" + total);
-    }
-
-    public void mostrarSaldo(Usuario usuario) {
-        System.out.println("El saldo del usuario " + usuario.getNombre() + " es: $" + usuario.getSaldo());
     }
 
     public void mostrarCuenta(Usuario usuario) {
@@ -39,5 +49,13 @@ public class Banco {
         System.out.println("Edad: " + usuario.getEdad());
         System.out.println("Correo: " + usuario.getCorreo());
         System.out.println("Saldo: " + usuario.getSaldo());
+    }
+
+    public void mostrarSaldo(Usuario usuario) {
+        System.out.println("El saldo del usuario " + usuario.getNombre() + " es: $" + usuario.getSaldo());
+    }
+
+    public boolean sinSucursales() {
+        return sucursales.isEmpty();
     }
 }
