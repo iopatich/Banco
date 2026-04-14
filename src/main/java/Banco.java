@@ -5,7 +5,6 @@ public class Banco {
 
     public void crearSucursal(String nombre) {
         sucursales.add(new Sucursal(nombre));
-        System.out.println("Sucursal creada: " + nombre);
     }
 
     public Sucursal buscarSucursal(String nombre) {
@@ -17,9 +16,9 @@ public class Banco {
         return null;
     }
 
-    public Usuario buscarUsuario(String nombre) {
+    public Usuario buscarUsuario(int idUsuario) {
         for (Sucursal sucursal : sucursales) {
-            Usuario usuario = sucursal.buscarUsuario(nombre);
+            Usuario usuario = sucursal.buscarUsuario(idUsuario);
             if (usuario != null) return usuario;
         }
         return null;

@@ -12,15 +12,25 @@ public class Sucursal {
         return nombre;
     }
 
-    public void crearUsuario(String nombre, String direccion, TipoCuenta tipoCuenta, int edad, String correo) {
-        Usuario usuario = new Usuario(nombre, direccion, tipoCuenta, edad, correo);
+    public void crearUsuario(int idUsuario, String nombre, String contrasenia, String direccion, TipoCuenta tipoCuenta, int edad, String correo) {
+        Usuario usuario = new Usuario(idUsuario, nombre, contrasenia, direccion, tipoCuenta, edad, correo);
         usuarios.add(usuario);
-        System.out.println("Se  ha creado el usuario " + this.nombre);
+        System.out.println("Se  ha creado el usuario " + usuario.getNombre());
     }
 
-    public Usuario buscarUsuario(String nombre) {
+    public void borrarUsuario(int idUsuario) {
+        for (int i = 0; i < usuarios.size(); i++) {
+            if (usuarios.get(i).getIdUsuario() == idUsuario) {
+                usuarios.remove(i);
+                return;
+            }
+        }
+        System.out.println("Se ha eliminado al usuario " + idUsuario);
+    }
+
+    public Usuario buscarUsuario(int idUsuario) {
         for (Usuario usuario : usuarios) {
-            if (usuario.getNombre().equalsIgnoreCase(nombre)) {
+            if (usuario.getIdUsuario() == idUsuario) {
                 return usuario;
             }
         }

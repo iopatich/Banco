@@ -1,10 +1,16 @@
 public class Usuario {
+    private int idUsuario;
     private String nombre;
+    private String contrasenia;
     private String direccion;
     private TipoCuenta tipoCuenta;
     private int edad;
     private String correo;
     private double saldo;
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
 
     public String getNombre() {
         return nombre;
@@ -35,8 +41,10 @@ public class Usuario {
     }
 
 
-    public Usuario(String nombre, String direccion, TipoCuenta tipoCuenta, int edad, String correo) {
+    public Usuario(int idUsuario, String nombre, String contrasenia, String direccion, TipoCuenta tipoCuenta, int edad, String correo) {
+        this.idUsuario = idUsuario;
         this.nombre = nombre;
+        this.contrasenia = contrasenia;
         this.direccion = direccion;
         this.tipoCuenta = tipoCuenta;
         this.edad = edad;
