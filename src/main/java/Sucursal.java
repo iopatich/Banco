@@ -3,11 +3,11 @@ import java.util.List;
 
 public class Sucursal {
     private String nombre;
-    private Usuario admin;
+    private Admin admin;
     private List<Cliente> clientes;
     private List<Cuenta> cuentas;
 
-    public Sucursal(String nombre) {
+    public Sucursal(String nombre, Admin admin) {
         this.nombre = nombre;
         this.admin = admin;
         this.clientes = new ArrayList<>();
@@ -97,6 +97,10 @@ public class Sucursal {
         return clientes;
     }
 
+    public Admin getAdmin() {
+        return admin;
+    }
+
     public void depositar(Admin admin, int idCuenta, double monto) {
         if (!admin.tienePermiso(Permiso.DEPOSITAR_PROPIO)) {
             System.out.println("No tienes permisos para depositar");
@@ -120,7 +124,22 @@ public class Sucursal {
         Cuenta destino = buscarCuenta(idCuentaDestino);
 
         if (origen != null && destino != null && origen.getSaldo() >= monto && origen != destino) {
-            origen
+            origen.transferir(origen, destino, monto);
+            System.out.println("Transferencia con exito");
+        }
+    }
+
+    public void retirar(Usuario cliente, int idCuenta, double monto) {
+        if (!cliente.tienePermiso(Permiso.RETIRAR_PROPIO)) {
+            System.out.println("Sin permiso");
+            return;
+        }
+
+        Cuenta cuenta = buscarCuenta(idCuenta);
+
+        if (cuenta != null && cuenta.getSaldo() >= monto) {
+            cuenta.retirar(monto);
+            System.out.println("Retiro realizado");
         }
     }
 }

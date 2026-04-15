@@ -3,8 +3,8 @@ import java.util.ArrayList;
 public class Banco {
     private ArrayList<Sucursal> sucursales = new ArrayList<>();
 
-    public void crearSucursal(String nombre) {
-        sucursales.add(new Sucursal(nombre));
+    public void crearSucursal(String nombre, Admin admin) {
+        sucursales.add(new Sucursal(nombre, admin));
     }
 
     public Sucursal buscarSucursal(String nombre) {
@@ -16,10 +16,13 @@ public class Banco {
         return null;
     }
 
-    public Usuario buscarUsuario(int idUsuario) {
+    public Cliente buscarCliente(int idUsuario) {
         for (Sucursal sucursal : sucursales) {
-            Usuario usuario = sucursal.buscarUsuario(idUsuario);
-            if (usuario != null) return usuario;
+            for (Cliente cliente : sucursal.getClientes()) {
+                if (cliente.getUsuario().getId() == idUsuario) {
+                    return cliente;
+                }
+            }
         }
         return null;
     }
@@ -28,11 +31,13 @@ public class Banco {
         double total = 0;
 
         for (Sucursal sucursal : sucursales) {
-            System.out.print("Ingrese la sucursal que quiera mirar: " + sucursal.getNombre());
+            System.out.println("Sucursal: " + sucursal.getNombre());
 
-            for (Usuario usuario : sucursal.getUsuarios()) {
-                System.out.println("  " + usuario.getNombre() + ": $" + usuario.getSaldo());
-                total += usuario.getSaldo();
+            for (Cliente cliente : sucursal.getClientes()) {
+                for (Cuenta cuenta : cliente.getCuentas()) {
+                    System.out.println("Cuenta: " + cuenta.getIdCuenta() + "  Saldo: $" + cuenta.getSaldo());
+                    total += cuenta.getSaldo();
+                }
             }
 
             System.out.println();
@@ -41,20 +46,26 @@ public class Banco {
         System.out.println("Total en el banco: $" + total);
     }
 
-    public void mostrarCuenta(Usuario usuario) {
-        System.out.println("Nombre: " + usuario.getNombre());
-        System.out.println("Direccion: " + usuario.getDireccion());
-        System.out.println("Tipo de cuenta: " + usuario.getTipoCuenta());
-        System.out.println("Edad: " + usuario.getEdad());
-        System.out.println("Correo: " + usuario.getCorreo());
-        System.out.println("Saldo: " + usuario.getSaldo());
-    }
+    public void mostrarCuentasCliente(int idUsuario) {
+        Cliente cliente = buscarCliente(idUsuario);
 
-    public void mostrarSaldo(Usuario usuario) {
-        System.out.println("El saldo del usuario " + usuario.getNombre() + " es: $" + usuario.getSaldo());
+        if (cliente == null) {
+            System.out.println("Cliente no encontrado");
+            return;
+        }
+
+        System.out.println("Cliente: " + cliente.getUsuario().getNombre());
+
+        for (Cuenta cuenta : cliente.getCuentas()) {
+            System.out.println("Cuenta: " + cuenta.getIdCuenta() + " Saldo: $" + cuenta.getSaldo());
+        }
     }
 
     public boolean sinSucursales() {
         return sucursales.isEmpty();
+    }
+
+    public ArrayList<Sucursal> getSucursales() {
+        return sucursales;
     }
 }

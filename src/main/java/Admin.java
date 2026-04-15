@@ -3,5 +3,4 @@ public class Admin extends Usuario{
         super(idAdmin, nombre, contrasenia);
         agregarPermisosAdmin();
     }
-
 }
