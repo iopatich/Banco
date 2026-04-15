@@ -7,6 +7,7 @@ public class Cliente {
     public Cliente(Usuario usuario) {
         this.usuario = usuario;
         this.cuentas = new ArrayList<>();
+        usuario.agregarPermisosCliente();
     }
 
     public Usuario getUsuario() {

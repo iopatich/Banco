@@ -4,6 +4,7 @@ import java.util.List;
 public class Cuenta {
     private int idCuenta;
     private TipoCuenta tipoCuenta;
+
     private double saldo;
     private ArrayList<Transaccion> historial;
 
@@ -24,8 +25,14 @@ public class Cuenta {
         historial.add(new Transaccion("RETIRO", monto));
     }
 
-    public void agregarTransaccion(Transaccion t) {
-        historial.add(t);
+    public void transferir(Cuenta cuentaOrigen, Cuenta cuentaDestino, double monto) {
+        cuentaOrigen.setSaldo(cuentaOrigen.getSaldo() - monto);
+        cuentaDestino.setSaldo(cuentaOrigen.getSaldo() + monto);
+        historial.add(new Transaccion("TRANSFERENCIA", monto));
+    }
+
+    public void agregarTransaccion(Transaccion transaccion) {
+        historial.add(transaccion);
     }
 
     public List<Transaccion> getHistorial() {
@@ -34,6 +41,10 @@ public class Cuenta {
 
     public double getSaldo() {
         return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
     }
 
     public int getIdCuenta() {
