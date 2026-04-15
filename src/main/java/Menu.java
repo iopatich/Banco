@@ -13,57 +13,59 @@ public class Menu {
         banco.crearSucursal("Boedo", adminBoedo);
         banco.crearSucursal("Retiro", adminRetiro);
 
-        Sucursal sucursalLogueada = login();
+        while (true) {
+            Sucursal sucursalLogueada = login();
 
-        if (sucursalLogueada == null) {
-            System.out.println("Login fallido");
-            return;
-        }
-
-        Admin admin = sucursalLogueada.getAdmin();
-
-        int opcion;
-
-        do {
-            System.out.println("Menu\nSucursal: " + sucursalLogueada.getNombre());
-            System.out.println("1: Crear cliente");
-            System.out.println("2: Crear cuenta");
-            System.out.println("3: Depositar");
-            System.out.println("4: Transferir");
-            System.out.println("5: Retirar");
-            System.out.println("6: Ver cuentas");
-            System.out.println("7: Ver transacciones");;
-            System.out.println("8: Borrar cuenta");
-            System.out.println("0: Salir");
-
-            opcion = teclado.nextInt();
-
-            switch (opcion) {
-                case 1 -> crearCliente(sucursalLogueada, admin);
-                case 2 -> crearCuenta(sucursalLogueada, admin);
-                case 3 -> depositar(sucursalLogueada, admin);
-                case 4 -> transferir(sucursalLogueada, admin);
-                case 5 -> retirar(sucursalLogueada);
-                case 6 -> banco.mostrarBalanceCuentas();
-                case 7 -> verTransacciones(sucursalLogueada, admin);
-                case 8 -> borrarCuenta(sucursalLogueada, admin);
-                case 0 -> System.out.println("Finalizar");
-                default -> System.out.println("Opcion invalida");
+            if (sucursalLogueada == null) {
+                System.out.println("Login fallido");
+                continue;
             }
 
-        } while (opcion != 0);
+            Admin admin = sucursalLogueada.getAdmin();
+
+            int opcion;
+
+            do {
+                System.out.println("Menu\nSucursal: " + sucursalLogueada.getNombre());
+                System.out.println("1: Crear cliente");
+                System.out.println("2: Crear cuenta");
+                System.out.println("3: Depositar");
+                System.out.println("4: Transferir");
+                System.out.println("5: Retirar");
+                System.out.println("6: Ver balance de las cuentas");
+                System.out.println("7: Ver historial de transacciones");
+                System.out.println("8: Ver cuentas");
+                System.out.println("9: Borrar cuenta");
+                System.out.println("0: Cerrar sesión");
+
+                opcion = teclado.nextInt();
+
+                switch (opcion) {
+                    case 1 -> crearCliente(sucursalLogueada, admin);
+                    case 2 -> crearCuenta(sucursalLogueada, admin);
+                    case 3 -> depositar(sucursalLogueada, admin);
+                    case 4 -> transferir(sucursalLogueada, admin);
+                    case 5 -> retirar(sucursalLogueada);
+                    case 6 -> banco.mostrarBalanceCuentas();
+                    case 7 -> verTransacciones(sucursalLogueada, admin);
+                    case 8 -> sucursalLogueada.mostrarCuentas(admin);
+                    case 9 -> borrarCuenta(sucursalLogueada, admin);
+                    case 0 -> System.out.println("Cerrando sesión");
+                }
+            } while (opcion != 0);
+            teclado.nextLine();
+        }
     }
 
     private Sucursal login() {
         System.out.println("Ingrese sus datos de admin");
-        System.out.print("id: ");
-        int id = teclado.nextInt();
+        System.out.print("Nombre: ");
+        String nombre = teclado.nextLine();
 
-        teclado.nextLine();
-        System.out.print("Contraseña: ");
+        System.out.print("Contrasenia: ");
         String contrasenia = teclado.nextLine();
 
-        Sucursal sucursal = banco.loginAdmin(id, contrasenia);
+        Sucursal sucursal = banco.loginAdmin(nombre, contrasenia);
 
         if (sucursal != null) {
             System.out.println("Login exitoso en sucursal: " + sucursal.getNombre());
@@ -74,14 +76,14 @@ public class Menu {
     private void crearCliente(Sucursal sucursal, Admin admin) {
         teclado.nextLine();
 
-        System.out.print("id: ");
+        System.out.print("id del cliente: ");
         int id = teclado.nextInt();
         teclado.nextLine();
 
-        System.out.print("Nombre: ");
+        System.out.print("Nombre del cliente: ");
         String nombre = teclado.nextLine();
 
-        System.out.print("Contrasenia: ");
+        System.out.print("Contrasenia del cliente: ");
         String pass = teclado.nextLine();
 
         Usuario usuario = new Usuario(id, nombre, pass) {};
@@ -91,7 +93,7 @@ public class Menu {
     }
 
     private void crearCuenta(Sucursal sucursal, Admin admin) {
-        System.out.print("ID cliente: ");
+        System.out.print("id del cliente: ");
         int idCliente = teclado.nextInt();
 
         Cliente cliente = null;
@@ -108,11 +110,11 @@ public class Menu {
             return;
         }
 
-        System.out.print("ID cuenta: ");
+        System.out.print("id de la cuenta: ");
         int idCuenta = teclado.nextInt();
         teclado.nextLine();
 
-        System.out.print("Tipo: ");
+        System.out.print("Tipo de cuenta (ahorro o corriente): ");
         TipoCuenta tipo = TipoCuenta.valueOf(teclado.nextLine().toUpperCase());
 
         sucursal.crearCuenta(admin, cliente, idCuenta, tipo);
@@ -179,7 +181,6 @@ public class Menu {
             sucursal.verTransacciones(admin, cuenta);
         }
     }
-
 
     private void borrarCuenta(Sucursal sucursal, Admin admin) {
         System.out.print("ID cuenta: ");

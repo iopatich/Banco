@@ -11,6 +11,6 @@ public class Transaccion {
 
     @Override
     public String toString() {
-        return tipo + " - $" + monto + " - ";
+        return "Historial de transacciones\n" + tipo + " $" + monto;
     }
 }
