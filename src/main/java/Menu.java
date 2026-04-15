@@ -13,7 +13,8 @@ public class Menu {
         banco.crearSucursal("Boedo", adminBoedo);
         banco.crearSucursal("Retiro", adminRetiro);
 
-        while (true) {
+        boolean finalizar = false;
+        while (!finalizar) {
             Sucursal sucursalLogueada = login();
 
             if (sucursalLogueada == null) {
@@ -37,6 +38,7 @@ public class Menu {
                 System.out.println("8: Ver cuentas");
                 System.out.println("9: Borrar cuenta");
                 System.out.println("0: Cerrar sesión");
+                System.out.println("-1: Finalizar");
 
                 opcion = teclado.nextInt();
 
@@ -51,8 +53,10 @@ public class Menu {
                     case 8 -> sucursalLogueada.mostrarCuentas(admin);
                     case 9 -> borrarCuenta(sucursalLogueada, admin);
                     case 0 -> System.out.println("Cerrando sesión");
+                    case -1 -> {System.out.println("Finalizando"); finalizar = true;}
+                    default -> System.out.println("Opcion invalida");
                 }
-            } while (opcion != 0);
+            } while (opcion != 0 && !finalizar);
             teclado.nextLine();
         }
     }

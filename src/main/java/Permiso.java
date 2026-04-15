@@ -1,6 +1,4 @@
 public enum Permiso {
-    CREAR_SUCURSAL,
-    VER_SUCURSALES,
     CREAR_CLIENTE,
     CREAR_CUENTA,
     DAR_BAJA_CUENTA,
