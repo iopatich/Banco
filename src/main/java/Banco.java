@@ -68,4 +68,15 @@ public class Banco {
     public ArrayList<Sucursal> getSucursales() {
         return sucursales;
     }
+
+    public Sucursal loginAdmin(int id, String contrasenia) {
+        for (Sucursal sucursal : sucursales) {
+            Admin admin = sucursal.getAdmin();
+
+            if (admin.getId() == id && admin.getContrasenia().equals(contrasenia)) {
+                return sucursal;
+            }
+        }
+        return null;
+    }
 }

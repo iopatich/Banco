@@ -14,6 +14,18 @@ public abstract class Usuario {
         this.permisos = new HashSet<>();
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
     public void agregarPermisosAdmin() {
         permisos.add(Permiso.CREAR_CLIENTE);
         permisos.add(Permiso.CREAR_CUENTA);
@@ -31,13 +43,5 @@ public abstract class Usuario {
 
     public boolean tienePermiso(Permiso permiso) {
         return permisos.contains(permiso);
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getNombre() {
-        return nombre;
     }
 }

@@ -18,6 +18,14 @@ public class Sucursal {
         return nombre;
     }
 
+    public List<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public Admin getAdmin() {
+        return admin;
+    }
+
     public void crearCliente(Admin admin, Cliente cliente) {
         if (!admin.tienePermiso(Permiso.CREAR_CLIENTE)) {
             System.out.println("No tienes permisos para crear un cliente");
@@ -64,10 +72,9 @@ public class Sucursal {
         for (Cuenta cuenta : cuentas) {
             if (cuenta.getIdCuenta() == idCuenta) {
                 return cuenta;
-            } else {
-                System.out.println("No se ha encontrado la cuenta");
             }
         }
+        System.out.println("No se ha encontrado la cuenta");
         return null;
     }
 
@@ -91,14 +98,6 @@ public class Sucursal {
         for (Transaccion transaccion : cuenta.getHistorial()) {
             System.out.println(transaccion);
         }
-    }
-
-    public List<Cliente> getClientes() {
-        return clientes;
-    }
-
-    public Admin getAdmin() {
-        return admin;
     }
 
     public void depositar(Admin admin, int idCuenta, double monto) {
