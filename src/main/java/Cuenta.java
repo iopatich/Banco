@@ -14,20 +14,6 @@ public class Cuenta {
         this.historial = new ArrayList<>();
     }
 
-    public void depositar(double monto) {
-        saldo += monto;
-        historial.add(new Transaccion("DEPOSITO", monto));
-    }
-
-    public void retirar(double monto) {
-        saldo -= monto;
-        historial.add(new Transaccion("RETIRO", monto));
-    }
-
-    public void agregarTransaccion(Transaccion t) {
-        historial.add(t);
-    }
-
     public List<Transaccion> getHistorial() {
         return historial;
     }
@@ -36,7 +22,28 @@ public class Cuenta {
         return saldo;
     }
 
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
     public int getIdCuenta() {
         return idCuenta;
     }
+
+    public void depositar(double monto) {
+        saldo += monto;
+        historial.add(new Transaccion("Deposito", monto));
+    }
+
+    public void retirar(double monto) {
+        saldo -= monto;
+        historial.add(new Transaccion("Retiro", monto));
+    }
+
+    public void transferir(Cuenta cuentaOrigen, Cuenta cuentaDestino, double monto) {
+        cuentaOrigen.setSaldo(cuentaOrigen.getSaldo() - monto);
+        cuentaDestino.setSaldo(cuentaDestino.getSaldo() + monto);
+        historial.add(new Transaccion("Transferencia", monto));
+    }
+
 }

@@ -7,10 +7,11 @@ public class Cliente {
     public Cliente(Usuario usuario) {
         this.usuario = usuario;
         this.cuentas = new ArrayList<>();
+        usuario.agregarPermisosCliente();
     }
 
     public Usuario getUsuario() {
-        return usuario;
+            return usuario;
     }
 
     public ArrayList<Cuenta> getCuentas() {
@@ -20,4 +21,5 @@ public class Cliente {
     public void agregarCuenta(Cuenta cuenta) {
         cuentas.add(cuenta);
     }
+
 }

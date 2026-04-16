@@ -1,54 +1,52 @@
-public class Usuario {
-    private int idUsuario;
-    private String nombre;
-    private String contrasenia;
-    private String direccion;
-    private TipoCuenta tipoCuenta;
-    private int edad;
-    private String correo;
-    private double saldo;
+import java.util.HashSet;
+import java.util.Set;
 
-    public int getIdUsuario() {
-        return idUsuario;
+public abstract class Usuario {
+    protected int id;
+    protected String nombre;
+    protected String contrasenia;
+    protected Set<Permiso> permisos;
+
+    public Usuario(int id, String nombre, String contrasenia) {
+        this.id = id;
+        this.nombre = nombre;
+        this.contrasenia = contrasenia;
+        this.permisos = new HashSet<>();
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public String getContrasenia() {
+        return contrasenia;
     }
 
-    public TipoCuenta getTipoCuenta() {
-        return tipoCuenta;
+    public void agregarPermisosAdminBanco() {
+        permisos.add(Permiso.VER_SUCURSALES);
+        permisos.add(Permiso.VER_CUENTAS);
     }
 
-    public int getEdad() {
-        return edad;
+    public void agregarPermisosAdmin() {
+        permisos.add(Permiso.CREAR_CLIENTE);
+        permisos.add(Permiso.CREAR_CUENTA);
+        permisos.add(Permiso.DAR_BAJA_CUENTA);
+        permisos.add(Permiso.VER_CLIENTES);
+        permisos.add(Permiso.VER_CUENTAS);
+        permisos.add(Permiso.VER_TRANSACCIONES);
+        permisos.add(Permiso.DEPOSITAR_PROPIO);
+        permisos.add(Permiso.TRANSFERIR_PROPIO);
     }
 
-    public String getCorreo() {
-        return correo;
+    public void agregarPermisosCliente() {
+        permisos.add(Permiso.RETIRAR_PROPIO);
     }
 
-    public double getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
-    }
-
-
-    public Usuario(int idUsuario, String nombre, String contrasenia, String direccion, TipoCuenta tipoCuenta, int edad, String correo) {
-        this.idUsuario = idUsuario;
-        this.nombre = nombre;
-        this.contrasenia = contrasenia;
-        this.direccion = direccion;
-        this.tipoCuenta = tipoCuenta;
-        this.edad = edad;
-        this.correo = correo;
-        this.saldo = 0;
+    public boolean tienePermiso(Permiso permiso) {
+        return permisos.contains(permiso);
     }
 }

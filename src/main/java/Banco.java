@@ -2,37 +2,27 @@ import java.util.ArrayList;
 
 public class Banco {
     private ArrayList<Sucursal> sucursales = new ArrayList<>();
+    private AdminBanco adminBanco;
 
-    public void crearSucursal(String nombre) {
-        sucursales.add(new Sucursal(nombre));
+    public void setAdminBanco(AdminBanco adminBanco) {
+        this.adminBanco = adminBanco;
     }
 
-    public Sucursal buscarSucursal(String nombre) {
-        for (Sucursal sucursal : sucursales) {
-            if (sucursal.getNombre().equalsIgnoreCase(nombre)) {
-                return sucursal;
-            }
-        }
-        return null;
-    }
-
-    public Usuario buscarUsuario(int idUsuario) {
-        for (Sucursal sucursal : sucursales) {
-            Usuario usuario = sucursal.buscarUsuario(idUsuario);
-            if (usuario != null) return usuario;
-        }
-        return null;
+    public void crearSucursal(String nombre, Admin admin) {
+        sucursales.add(new Sucursal(nombre, admin));
     }
 
     public void mostrarBalanceCuentas() {
         double total = 0;
 
         for (Sucursal sucursal : sucursales) {
-            System.out.print("Ingrese la sucursal que quiera mirar: " + sucursal.getNombre());
+            System.out.println("Sucursal: " + sucursal.getNombre());
 
-            for (Usuario usuario : sucursal.getUsuarios()) {
-                System.out.println("  " + usuario.getNombre() + ": $" + usuario.getSaldo());
-                total += usuario.getSaldo();
+            for (Cliente cliente : sucursal.getClientes()) {
+                for (Cuenta cuenta : cliente.getCuentas()) {
+                    System.out.println("Cuenta: " + cuenta.getIdCuenta() + "  Saldo: $" + cuenta.getSaldo());
+                    total += cuenta.getSaldo();
+                }
             }
 
             System.out.println();
@@ -41,20 +31,19 @@ public class Banco {
         System.out.println("Total en el banco: $" + total);
     }
 
-    public void mostrarCuenta(Usuario usuario) {
-        System.out.println("Nombre: " + usuario.getNombre());
-        System.out.println("Direccion: " + usuario.getDireccion());
-        System.out.println("Tipo de cuenta: " + usuario.getTipoCuenta());
-        System.out.println("Edad: " + usuario.getEdad());
-        System.out.println("Correo: " + usuario.getCorreo());
-        System.out.println("Saldo: " + usuario.getSaldo());
-    }
+    public Object loginAdmin(String nombre, String contrasenia) {
+        if (adminBanco.getNombre().equals(nombre) &&
+                adminBanco.getContrasenia().equals(contrasenia)) {
+            return adminBanco;
+        }
 
-    public void mostrarSaldo(Usuario usuario) {
-        System.out.println("El saldo del usuario " + usuario.getNombre() + " es: $" + usuario.getSaldo());
-    }
+        for (Sucursal sucursal : sucursales) {
+            Admin admin = sucursal.getAdmin();
 
-    public boolean sinSucursales() {
-        return sucursales.isEmpty();
+            if (admin.getNombre().equals(nombre) && admin.getContrasenia().equals(contrasenia)) {
+                return sucursal;
+            }
+        }
+        return null;
     }
 }
