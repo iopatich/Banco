@@ -11,7 +11,7 @@ public class Cliente {
     }
 
     public Usuario getUsuario() {
-        return usuario;
+            return usuario;
     }
 
     public ArrayList<Cuenta> getCuentas() {

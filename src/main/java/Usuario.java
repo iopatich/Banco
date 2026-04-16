@@ -26,6 +26,11 @@ public abstract class Usuario {
         return contrasenia;
     }
 
+    public void agregarPermisosAdminBanco() {
+        permisos.add(Permiso.VER_SUCURSALES);
+        permisos.add(Permiso.VER_CUENTAS);
+    }
+
     public void agregarPermisosAdmin() {
         permisos.add(Permiso.CREAR_CLIENTE);
         permisos.add(Permiso.CREAR_CUENTA);

@@ -2,6 +2,11 @@ import java.util.ArrayList;
 
 public class Banco {
     private ArrayList<Sucursal> sucursales = new ArrayList<>();
+    private AdminBanco adminBanco;
+
+    public void setAdminBanco(AdminBanco adminBanco) {
+        this.adminBanco = adminBanco;
+    }
 
     public void crearSucursal(String nombre, Admin admin) {
         sucursales.add(new Sucursal(nombre, admin));
@@ -26,7 +31,12 @@ public class Banco {
         System.out.println("Total en el banco: $" + total);
     }
 
-    public Sucursal loginAdmin(String nombre, String contrasenia) {
+    public Object loginAdmin(String nombre, String contrasenia) {
+        if (adminBanco.getNombre().equals(nombre) &&
+                adminBanco.getContrasenia().equals(contrasenia)) {
+            return adminBanco;
+        }
+
         for (Sucursal sucursal : sucursales) {
             Admin admin = sucursal.getAdmin();
 

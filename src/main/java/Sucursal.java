@@ -78,8 +78,8 @@ public class Sucursal {
         return null;
     }
 
-    public void mostrarCuentas(Usuario usuario) {
-        if (!usuario.tienePermiso(Permiso.VER_CUENTAS)) {
+    public void mostrarCuentas(Admin admin) {
+        if (!admin.tienePermiso(Permiso.VER_CUENTAS)) {
             System.out.println("No cuenta con permisos para ver las cuentas");
             return;
         }
